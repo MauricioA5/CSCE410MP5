@@ -56,7 +56,13 @@
 
 class Scheduler {
 
-  /* The scheduler may need private members... */
+   /* Ready Queue members*/
+   struct Node {
+      Thread * thread;
+      Node * next;
+   };
+   Node * ready_head;
+   Node * ready_tail;
   
 public:
 
