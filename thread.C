@@ -34,6 +34,7 @@
 #include "frame_pool.H"
 
 #include "thread.H"
+#include "scheduler.H"
 
 #include "threads_low.H"
 
@@ -68,15 +69,8 @@ inline void Thread::push(unsigned long _val) {
 /* LOCAL FUNCTIONS TO START/SHUTDOWN THREADS. */
 
 static void thread_shutdown() {
-    /* This function should be called when the thread returns from the thread function.
-       It terminates the thread by releasing memory and any other resources held by the thread. 
-       This is a bit complicated because the thread termination interacts with the scheduler.
-     */
-
-    assert(false);
-    /* Let's not worry about it for now. 
-       This means that we should have non-terminating thread functions. 
-    */
+    /* setup_context placed this return address above the thread function. */
+    Scheduler::terminate_current();
 }
 
 static void thread_start() {
@@ -182,6 +176,10 @@ Thread::Thread(Thread_Function _tf, char * _stack, unsigned int _stack_size) {
 
     setup_context(_tf);
 
+}
+
+Thread::~Thread() {
+    delete[] stack;
 }
 
 int Thread::ThreadId() {

@@ -72,6 +72,9 @@ public:
        i.e., to the bottom of the stack.
     */
 
+    ~Thread();
+    /* A thread owns the new[] stack passed to its constructor. */
+
     int ThreadId();
     /* Returns the thread id of the thread. */
 

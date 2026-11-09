@@ -63,6 +63,9 @@ class Scheduler {
    };
    Node * ready_head;
    Node * ready_tail;
+   Thread * idle;
+   Thread * finished;
+   void collect_finished();
   
 public:
 
@@ -94,6 +97,9 @@ public:
    /* Remove the given thread from the scheduler in preparation for destruction
       of the thread. 
       Graciously handle the case where the thread wants to terminate itself.*/
+
+   static void terminate_current();
+   /* Entry from thread_shutdown when a thread function returns. */
   
 };
 	
