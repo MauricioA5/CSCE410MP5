@@ -116,7 +116,7 @@ void Scheduler::terminate(Thread * _thread) {
 }
 
 void Scheduler::collect_finished() {
-  /* Only allow a thread to releas its predecessor only after switching stacks. */
+  /* Only allow a thread to release its predecessor only after switching stacks. */
   if (finished && finished != Thread::CurrentThread()) {
     delete finished;
     finished = 0;
